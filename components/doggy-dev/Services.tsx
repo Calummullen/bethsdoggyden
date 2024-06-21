@@ -142,7 +142,7 @@ const Tile: FC<{
           <Image
             src={image}
             alt="tile image"
-            className={`absolute object-cover`}
+            className={`h-[500px] absolute object-cover`}
           />
           <Image
             height={40}
@@ -160,7 +160,7 @@ const Tile: FC<{
       </div>
 
       <h3
-        className={`${caviarBold.className} ${
+        className={`mt-4 ${caviarBold.className} ${
           flipped ? "text-purple-700" : "text-black"
         } text-5xl`}
       >
