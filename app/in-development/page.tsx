@@ -44,7 +44,7 @@ const LandingPage = () => {
         {/* <Image src={background} alt="background" className="bg-fixed" /> */}
         <div className="bg-fixed  bg-[url('../public/images/background-3.jpg')] bg-no-repeat md:h-[800px]">
           <div
-            className={`${happyMemories.className} flex flex-col items-center m-48 gap-24`}
+            className={`${happyMemories.className} flex flex-col items-center text-center my-24 mx-4 lg:m-48 gap-24`}
           >
             <h1 className="text-9xl font-bold text-primary">
               Beth's Doggy Den

@@ -36,7 +36,7 @@ export const Services: FC = () => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
   return (
-    <div className="px-12 md:px-44 py-12 bg-gray-200 flex flex-col gap-12">
+    <div className="px-12 lg:px-32 xl:px-44 py-12 bg-gray-200 flex flex-col gap-12">
       <div
         ref={textRef}
         className={`transition-all duration-700 delay-500 relative -left-12 ${
@@ -53,7 +53,7 @@ export const Services: FC = () => {
       </div>
       <div
         ref={imageRef}
-        className={`grid transition-all delay-1000 duration-500 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 items-center justify-between text-center gap-12 mb-24 ${
+        className={`grid transition-all delay-1000 duration-500 2xl:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-between text-center gap-12 mb-24 ${
           isVisibleImage ? "opacity-100 translate-y-12" : "opacity-0"
         }`}
       >
@@ -133,7 +133,7 @@ const Tile: FC<{
 
     <div className="flex perspective-1000 flex-col rounded-sm shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer">
       <div
-        className={`relative transform-style-3d h-[500px] transition-transform duration-700 ${
+        className={`relative transform-style-3d h-[400px] transition-transform duration-700 ${
           flipped ? "rotate-y-180" : ""
         }`}
         onClick={handleFlip}
@@ -142,7 +142,7 @@ const Tile: FC<{
           <Image
             src={image}
             alt="tile image"
-            className={`h-[500px] absolute object-cover`}
+            className={`h-[400px] absolute object-cover`}
           />
           <Image
             height={40}
@@ -152,7 +152,7 @@ const Tile: FC<{
             className="absolute m-2 right-0 opacity-70"
           />
         </div>
-        <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-primary flex items-center justify-center p-4">
+        <div className="absolute w-full h-[400px] backface-hidden rotate-y-180 bg-primary flex items-center justify-center p-4">
           <p className="text-center text-lg">
             This is the back of the card. Click to flip back to the image.
           </p>
@@ -160,7 +160,7 @@ const Tile: FC<{
       </div>
 
       <h3
-        className={`mt-4 ${caviarBold.className} ${
+        className={`mt-4 mx-2 ${caviarBold.className} ${
           flipped ? "text-purple-700" : "text-black"
         } text-5xl`}
       >

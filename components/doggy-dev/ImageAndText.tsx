@@ -40,7 +40,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
     }`;
 
   return (
-    <div className="flex mt-24 px-12 md:px-44 flex-col lg:flex-row gap-36 lg:gap-20 justify-between items-center">
+    <div className="flex mt-24 px-12 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 justify-between items-center">
       <div
         ref={textRef}
         className={`order-${
@@ -65,7 +65,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
         <Image
           src={image1}
           alt="background"
-          className={`rounded-xl transition-opacity absolute duration-700 -right-24 hover:z-10 ${
+          className={`rounded-xl transition-opacity absolute duration-700  hover:z-10 ${
             isVisibleImage
               ? "opacity-100 -translate-x-4 right-0 delay-[500ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
@@ -74,7 +74,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
         <Image
           src={image2}
           alt="background"
-          className={`rounded-xl transition-opacity duration-700 absolute -right-24 rotate-[6deg] hover:z-10 ${
+          className={`rounded-xl transition-opacity duration-700 absolute  rotate-[6deg] hover:z-10 ${
             isVisibleImage
               ? "opacity-100 -translate-x-4 right-0 delay-[1000ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
@@ -83,7 +83,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
         <Image
           src={image3}
           alt="background"
-          className={`rounded-xl cursor-pointer transition-opacity duration-700 absolute -right-24 -rotate-6 hover:z-10  ${
+          className={`rounded-xl cursor-pointer transition-opacity duration-700 absolute  -rotate-6 hover:z-10  ${
             isVisibleImage
               ? "opacity-100 -translate-x-4 right-0 delay-[1500ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
@@ -92,7 +92,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
         <Image
           src={image4}
           alt="background"
-          className={`rounded-xl transition-opacity duration-700 absolute -right-24 rotate-12 hover:z-10 hover:delay-500 ${
+          className={`rounded-xl transition-opacity duration-700 absolute  rotate-12 hover:z-10 hover:delay-500 ${
             isVisibleImage
               ? "opacity-100 -translate-x-4 right-0 delay-[2000ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
@@ -101,10 +101,10 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
         <Image
           src={image5}
           alt="background"
-          className={`rounded-xl h-[500px] w-[500px] transition-opacity duration-700 -right-24 -rotate-[14deg] hover:z-10 ${
+          className={`rounded-xl transition-opacity h-[500px] w-[500px] duration-700 -rotate-[14deg] hover:z-10 ${
             isVisibleImage
               ? "opacity-100 -translate-x-4 right-0 delay-[2500ms]"
-              : "opacity-0"
+              : "opacity-0 w-[0px]"
           }`}
         />
       </div>

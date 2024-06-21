@@ -21,7 +21,7 @@ const happyMemories = localFont({
 const LandingPage = () => {
   return (
     <div
-      className={`text-6xl h-full text-primary ${happyMemories.className} flex h-screen`}
+      className={`text-6xl h-full text-primary ${happyMemories.className} flex flex-row h-screen text-center`}
     >
       <h1 className="m-auto">Under Construction 🐾</h1>
     </div>

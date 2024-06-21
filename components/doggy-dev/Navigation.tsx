@@ -112,8 +112,9 @@ const Navbar: FC<{
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden">
+        <div className="lg:hidden bg-white -m-1 cursor-pointer">
           <Link
+            onClick={() => executeScroll("home")}
             to="home"
             smooth={true}
             duration={500}
@@ -122,6 +123,7 @@ const Navbar: FC<{
             Home
           </Link>
           <Link
+            onClick={() => executeScroll("about")}
             to="about"
             smooth={true}
             duration={500}
@@ -130,12 +132,22 @@ const Navbar: FC<{
             About
           </Link>
           <Link
+            onClick={() => executeScroll("services")}
             to="services"
             smooth={true}
             duration={500}
             className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
           >
             Services
+          </Link>
+          <Link
+            onClick={() => executeScroll("reviews")}
+            to="services"
+            smooth={true}
+            duration={500}
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+          >
+            Reviews
           </Link>
         </div>
       )}
