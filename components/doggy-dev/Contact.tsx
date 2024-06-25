@@ -57,7 +57,7 @@ export const Contact: FC = () => {
         <ContactInfo
           imageSrc={mobile}
           title="07704742818"
-          href="javascript:"
+          href="+447704742818"
           isLink={false}
           animationDelay="md:delay-[1000ms]"
         />
