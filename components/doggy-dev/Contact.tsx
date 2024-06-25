@@ -90,7 +90,7 @@ const ContactInfo: FC<{
     >
       <a
         href={isLink ? href : `tel:${href}`}
-        className={`flex flex-col gap-12 items-center px-24 md:px-4 ${
+        className={`flex flex-col gap-12 items-center px-16 md:px-4 ${
           title !== "Mobile" ? "cursor-pointer" : "cursor-default"
         }`}
       >
