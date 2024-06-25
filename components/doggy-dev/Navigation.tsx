@@ -78,6 +78,15 @@ const Navbar: FC<{
             >
               Reviews
             </Link>
+            <Link
+              onClick={() => executeScroll("contact")}
+              to="contact"
+              smooth={true}
+              duration={500}
+              className="text-gray-800 hover:text-gray-600 cursor-pointer"
+            >
+              Contact
+            </Link>
           </div>
           <div className="flex items-center lg:hidden">
             <button
@@ -148,6 +157,15 @@ const Navbar: FC<{
             className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
           >
             Reviews
+          </Link>
+          <Link
+            onClick={() => executeScroll("contact")}
+            to="contact"
+            smooth={true}
+            duration={500}
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+          >
+            Contact
           </Link>
         </div>
       )}

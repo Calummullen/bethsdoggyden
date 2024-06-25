@@ -6,6 +6,7 @@ import { TopSection } from "@/components/doggy-dev/ImageAndText";
 import { Services } from "@/components/doggy-dev/Services";
 import { useRef } from "react";
 import { ReviewSummary } from "@/components/doggy-dev/reviews/ReviewSummary";
+import { Contact } from "@/components/doggy-dev/Contact";
 
 const happyMemories = localFont({
   src: [
@@ -21,6 +22,7 @@ const LandingPage = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const reviewsRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
   const executeScroll = (view: ExecuteScrollType) => {
     switch (view) {
       case "home":
@@ -34,6 +36,9 @@ const LandingPage = () => {
         break;
       case "reviews":
         reviewsRef.current?.scrollIntoView();
+        break;
+      case "contact":
+        contactRef.current?.scrollIntoView();
         break;
     }
   };
@@ -54,7 +59,7 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
-        <div className="bg-white flex flex-col gap-36 ">
+        <div className="bg-white flex flex-col ">
           <div className="scroll-m-[128px]" ref={aboutRef}>
             <TopSection />
           </div>
@@ -69,7 +74,15 @@ const LandingPage = () => {
               ]}
             />
           </div>
+          <div className="scroll-m-[128px]" ref={contactRef}>
+            <Contact />
+          </div>
         </div>
+        <footer>
+          <div className="px-12 lg:px-32 xl:px-44 py-12 bg-gray-100 flex flex-col gap-24">
+            Footer
+          </div>
+        </footer>
       </div>
     </div>
   );

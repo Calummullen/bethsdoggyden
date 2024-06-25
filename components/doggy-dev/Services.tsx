@@ -39,7 +39,7 @@ export const Services: FC = () => {
     <div className="px-12 lg:px-32 xl:px-44 py-12 bg-gray-200 flex flex-col gap-12">
       <div
         ref={textRef}
-        className={`transition-all duration-700 delay-500 relative -left-12 ${
+        className={`transition-all duration-700 md:delay-500 relative -left-12 ${
           isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"
         }`}
       >

@@ -36,18 +36,13 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
 
-  const isVisibleImageStyle = (delay: string, isLast: boolean = false) =>
-    `opacity-100 -translate-x-4 right-0 delay-[${delay}ms] ${
-      !isLast ? "hover:border-double hover:border-8 hover:border-primary" : ""
-    }`;
-
   return (
-    <div className="flex sm:mb-12 mt-24 px-12 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 justify-between items-center">
+    <div className="flex mb-12 sm:mb-48 mt-24 px-12 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 items-center">
       <div
         ref={textRef}
         className={`order-${
           reverse ? 1 : 0
-        } transition-opacity duration-700 text-4xl md:w-[500px] flex flex-col flex-grow gap-12 ${
+        } transition-opacity duration-700 text-4xl basis-2/3 flex flex-col flex-grow gap-12 ${
           isVisibleText ? "opacity-100 translate-y-4" : "opacity-0"
         }`}
       >

@@ -1,1 +1,1 @@
-type ExecuteScrollType = "home" | "about" | "services" | "reviews";
+type ExecuteScrollType = "home" | "about" | "services" | "reviews" | "contact";
