@@ -6,6 +6,8 @@ import image2 from "../../public/images/stacked-images/imageandtext-2.jpg";
 import image3 from "../../public/images/stacked-images/imageandtext-3.jpg";
 import image4 from "../../public/images/stacked-images/imageandtext-4.jpg";
 import image5 from "../../public/images/stacked-images/imageandtext-5.jpg";
+import image6 from "../../public/images/stacked-images/imageandtext-6.jpg";
+import image7 from "../../public/images/stacked-images/imageandtext-7.jpg";
 import Image from "next/image";
 import { useIsVisible } from "@/utils/useIsVisible";
 import localFont from "@next/font/local";
@@ -40,7 +42,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
     }`;
 
   return (
-    <div className="flex mt-24 px-12 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 justify-between items-center">
+    <div className="flex sm:mb-12 mt-24 px-12 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 justify-between items-center">
       <div
         ref={textRef}
         className={`order-${
@@ -61,49 +63,68 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
           safe, nurturing environment.
         </p>
       </div>
-      <div ref={imageRef} className="relative">
+      <div ref={imageRef} className="relative w-[300px] sm:w-[400px] h-[400px]">
+        <Image
+          src={image5}
+          alt="background"
+          className={`rounded-xl transition-opacity absolute duration-700 rotate-[5deg] hover:z-10 ${
+            isVisibleImage
+              ? "opacity-100  right-0 delay-[500ms]  hover:border-double hover:border-8 hover:border-primary"
+              : "opacity-0 w-[0px]"
+          }`}
+        />
         <Image
           src={image1}
           alt="background"
-          className={`rounded-xl transition-opacity absolute duration-700  hover:z-10 ${
+          className={`rounded-xl transition-opacity absolute duration-700 -rotate-[5deg] hover:z-10 ${
             isVisibleImage
-              ? "opacity-100 -translate-x-4 right-0 delay-[500ms] hover:border-double hover:border-8 hover:border-primary"
+              ? "opacity-100 right-0 delay-[1000ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
+          }`}
+        />
+        <Image
+          src={image6}
+          alt="background"
+          className={`rounded-xl transition-opacity absolute duration-700 rotate-[10deg] hover:z-10 ${
+            isVisibleImage
+              ? "opacity-100 right-0 delay-[1500ms]  hover:border-double hover:border-8 hover:border-primary"
+              : "opacity-0 w-[0px]"
           }`}
         />
         <Image
           src={image2}
           alt="background"
-          className={`rounded-xl transition-opacity duration-700 absolute  rotate-[6deg] hover:z-10 ${
+          className={`rounded-xl transition-opacity duration-700 absolute -rotate-[10deg] hover:z-10 ${
             isVisibleImage
-              ? "opacity-100 -translate-x-4 right-0 delay-[1000ms] hover:border-double hover:border-8 hover:border-primary"
+              ? "opacity-100 right-0 delay-[2000ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
           }`}
         />
         <Image
           src={image3}
           alt="background"
-          className={`rounded-xl cursor-pointer transition-opacity duration-700 absolute  -rotate-6 hover:z-10  ${
+          className={`rounded-xl cursor-pointer transition-opacity duration-700 absolute rotate-[15deg] hover:z-10  ${
             isVisibleImage
-              ? "opacity-100 -translate-x-4 right-0 delay-[1500ms] hover:border-double hover:border-8 hover:border-primary"
+              ? "opacity-100 right-0 delay-[2500ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
           }`}
         />
         <Image
           src={image4}
           alt="background"
-          className={`rounded-xl transition-opacity duration-700 absolute  rotate-12 hover:z-10 hover:delay-500 ${
+          className={`rounded-xl transition-opacity duration-700 absolute -rotate-[15deg] hover:z-10 hover:delay-500 ${
             isVisibleImage
-              ? "opacity-100 -translate-x-4 right-0 delay-[2000ms] hover:border-double hover:border-8 hover:border-primary"
+              ? "opacity-100 right-0 delay-[3000ms] hover:border-double hover:border-8 hover:border-primary"
               : "opacity-0"
           }`}
         />
+
         <Image
-          src={image5}
+          src={image7}
           alt="background"
-          className={`rounded-xl transition-opacity h-[500px] w-[500px] duration-700 -rotate-[14deg] hover:z-10 ${
+          className={`rounded-xl transition-opacity absolute duration-700 rotate-[20deg] hover:z-10 ${
             isVisibleImage
-              ? "opacity-100 -translate-x-4 right-0 delay-[2500ms]"
+              ? "opacity-100 right-0 delay-[3500ms]"
               : "opacity-0 w-[0px]"
           }`}
         />
