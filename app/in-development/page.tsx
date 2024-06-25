@@ -47,7 +47,7 @@ const LandingPage = () => {
       <Navbar executeScroll={(ref) => executeScroll(ref)} />
       <div ref={homeRef} className="flex flex-col mt-32 scroll-m-[128px]">
         {/* <Image src={background} alt="background" className="bg-fixed" /> */}
-        <div className="bg-fixed bg-cover md:bg-[url('../public/images/background-3.jpg')] bg-no-repeat md:h-[800px]">
+        <div className="bg-fixed bg-cover bg-[url('../public/images/background-3.jpg')] bg-no-repeat md:h-[800px]">
           <div
             className={`${happyMemories.className} flex flex-col items-center text-center my-24 mx-4 lg:m-48 gap-24`}
           >

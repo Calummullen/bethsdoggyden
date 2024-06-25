@@ -90,12 +90,12 @@ const ContactInfo: FC<{
     >
       <a
         href={isLink ? href : `tel:${href}`}
-        className={`flex flex-col gap-12 items-center ${
+        className={`flex flex-col gap-12 items-center px-24 md:px-4 ${
           title !== "Mobile" ? "cursor-pointer" : "cursor-default"
         }`}
       >
         <Image
-          className="md:w-[200px] md:h-[200px] w-[300px] h-[300px]"
+          className="md:w-[200px] md:h-[200px] "
           src={imageSrc}
           alt={imageSrc.src}
         />
