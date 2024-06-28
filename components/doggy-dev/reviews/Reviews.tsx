@@ -56,7 +56,7 @@ const ReviewTile: FC<Review> = ({
   rating,
 }) => {
   return (
-    <div className="flex bg-primary bg-opacity-30 p-4 rounded-md flex-col gap-2 w-full">
+    <div className="flex bg-primary bg-opacity-30 p-4 my-2 rounded-md flex-col gap-2 w-full">
       <p className={`${caviarBold.className}`}>{reviewer}</p>
       <div>
         <div className="flex items-center">
