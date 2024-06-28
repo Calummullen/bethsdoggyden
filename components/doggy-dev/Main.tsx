@@ -4,7 +4,7 @@ import Navbar from "@/components/doggy-dev/Navigation";
 import localFont from "@next/font/local";
 import { TopSection } from "@/components/doggy-dev/ImageAndText";
 import { Services } from "@/components/doggy-dev/Services";
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import {
   Review,
   ReviewSummary,
@@ -31,6 +31,7 @@ const caviarRegular = localFont({
 });
 
 export const Main: FC<{ reviews: Review[] }> = ({ reviews }) => {
+  const [currentReviews, setReviews] = useState<Review[]>(reviews);
   const homeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -55,11 +56,13 @@ export const Main: FC<{ reviews: Review[] }> = ({ reviews }) => {
         break;
     }
   };
+
+  const getReviewsByRating = (starNumber: number) =>
+    setReviews(reviews.filter((r) => r.rating === starNumber));
   return (
     <div className="w-full">
       <Navbar executeScroll={(ref) => executeScroll(ref)} />
       <div ref={homeRef} className="flex flex-col mt-32 scroll-m-[128px]">
-        {/* <Image src={background} alt="background" className="bg-fixed" /> */}
         <div className="bg-fixed bg-cover bg-[url('../public/images/background-3.jpg')] bg-no-repeat md:h-[800px]">
           <div
             className={`${happyMemories.className} flex flex-col items-center text-center my-24 mx-4 lg:m-48 gap-24`}
@@ -83,8 +86,11 @@ export const Main: FC<{ reviews: Review[] }> = ({ reviews }) => {
             className="grid grid-cols-1 items-center lg:grid-cols-2 scroll-m-[128px]"
             ref={reviewsRef}
           >
-            <ReviewSummary reviews={reviews} />
-            <Reviews reviews={reviews} />
+            <ReviewSummary
+              reviews={reviews}
+              onClick={(starNumber) => getReviewsByRating(starNumber)}
+            />
+            <Reviews reviews={currentReviews} />
           </div>
           <div className="scroll-m-[128px]" ref={contactRef}>
             <Contact />

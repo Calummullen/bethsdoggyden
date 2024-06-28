@@ -50,7 +50,7 @@ export const Services: FC = () => {
       </div>
       <div
         ref={imageRef}
-        className={`transition-all delay-1000 duration-500 flex flex-col md:flex-row justify-around text-center gap-12 mb-24 ${
+        className={`transition-all lg:grid-cols-2 grid grid-cols-1 delay-1000 duration-500  text-center gap-12 mb-24 ${
           isVisibleImage ? "opacity-100 translate-y-12" : "opacity-0"
         }`}
       >
@@ -87,33 +87,9 @@ const Tile: FC<{
   };
 
   return (
-    // <div className="flex flex-col gap-4 rounded-sm shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer">
-    //   <div className="bg-transparent  h-[500px] group">
-    //     <div className="relative w-full h-full transition-transform transform-3d group-hover:[transform:rotateY(180deg)]">
-    //       <div className="absolute rounded-t-sm backface-hidden w-full h-full">
-    //         <Image
-    //           //   height={500}
-    //           //   width={500}
-
-    //           src={image}
-    //           alt="tile image"
-    //           className={`h-[500px]  object-cover`}
-    //         />
-    //       </div>
-    //       <div
-    //         className={`flex flex-col bg-primary items-center justify-center w-full h-full backface-hidden [transform:rotateY(180deg)]`}
-    //       >
-    //         <p className="text-3xl">Hello Jasmin Syms :)</p>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <h3 className={`${caviarBold.className} text-3xl`}>{title}</h3>
-    //   <p className={`${caviarRegular.className} text-xl`}>{description}</p>
-    // </div>
-
     <div
       onClick={handleFlip}
-      className="flex w-full perspective-1000 flex-col rounded-sm shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer"
+      className="flex perspective-1000 flex-col rounded-lg shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer"
     >
       <div
         className={`relative transform-style-3d h-[500px] transition-transform duration-700 ${
@@ -124,17 +100,17 @@ const Tile: FC<{
           <Image
             src={image}
             alt="tile image"
-            className={`h-[500px] absolute object-cover`}
+            className={`h-[500px] absolute object-cover rounded-t-lg`}
           />
           <Image
             height={40}
             width={40}
             src={tap}
-            alt={"sdfsd"}
+            alt={"touch icon"}
             className="absolute m-2 right-0 opacity-70"
           />
         </div>
-        <div className="absolute gap-4 w-full h-[500px] backface-hidden rotate-y-180 bg-primary flex flex-col items-center justify-center p-4">
+        <div className="absolute rounded-t-lg gap-4 w-full h-[500px] backface-hidden rotate-y-180 bg-primary flex flex-col items-center justify-center p-4">
           {description.split(".").map((text) => (
             <p className="text-center text-lg">{text}.</p>
           ))}
@@ -148,8 +124,6 @@ const Tile: FC<{
       >
         {title}
       </h3>
-
-      {/* <p className={`${caviarRegular.className} text-xl`}>{description}</p> */}
     </div>
   );
 };

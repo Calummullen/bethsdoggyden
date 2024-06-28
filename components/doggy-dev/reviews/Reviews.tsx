@@ -28,18 +28,22 @@ export const Reviews: FC<{ reviews: Review[] }> = ({ reviews }) => {
     <div className="px-12 lg:pr-32 xl:pr-44 py-12 bg-white flex flex-col gap-24">
       <div
         ref={textRef}
-        className={`flex transition-all duration-700 delay-300 flex-col gap-4 items-center h-[500px] overflow-y-scroll ${
-          isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"
-        }`}
+        className={`flex transition-all duration-700 delay-300 flex-col gap-4 items-center h-[500px] ${
+          reviews.length ? "overflow-y-scroll" : ""
+        } ${isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"}`}
       >
-        {reviews.map(({ reviewer, review_date, rating, description }) => (
-          <ReviewTile
-            reviewer={reviewer}
-            rating={rating}
-            description={description}
-            review_date={review_date}
-          />
-        ))}
+        {reviews.length ? (
+          reviews.map(({ reviewer, review_date, rating, description }) => (
+            <ReviewTile
+              reviewer={reviewer}
+              rating={rating}
+              description={description}
+              review_date={review_date}
+            />
+          ))
+        ) : (
+          <p>No Reviews</p>
+        )}
       </div>
     </div>
   );
@@ -54,7 +58,6 @@ const ReviewTile: FC<Review> = ({
   return (
     <div className="flex bg-primary bg-opacity-30 p-4 rounded-md flex-col gap-2 w-full">
       <p className={`${caviarBold.className}`}>{reviewer}</p>
-      {/* <p className={`${caviarRegular.className}`}>{rating}</p> */}
       <div>
         <div className="flex items-center">
           <svg

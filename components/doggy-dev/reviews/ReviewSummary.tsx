@@ -29,7 +29,10 @@ const caviarBold = localFont({
   ],
 });
 
-export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
+export const ReviewSummary: FC<{
+  reviews: Review[];
+  onClick: (starNumber: number) => void;
+}> = ({ reviews, onClick }) => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
   const getPercentage = (groupLength: number) => {
@@ -56,7 +59,7 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
       0: { count: 0, percentage: "0%" },
     } as Map
   );
-  console.log(reviews);
+
   const [sum, setSum] = useState(
     reviews.reduce((prev, current) => prev + current.rating, 0) / reviews.length
   );
@@ -70,8 +73,6 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
     } else return "empty";
   };
 
-  // const [average, setAverage] = useState(sum / reviews.length);
-  // console.log(sum);
   return (
     <div className="px-12 lg:pl-32 xl:pl-44 py-12 bg-white flex flex-col gap-24">
       <div
@@ -103,11 +104,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
           {reviews.length} review{reviews.length === 1 ? "" : "s"}
         </p>
-        <div className="flex items-center mt-4">
-          <a
-            href="#"
-            className="text-sm w-12 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
+        <div
+          onClick={() => onClick(5)}
+          className="flex items-center mt-4 cursor-pointer"
+        >
+          <a className="text-sm w-12 font-medium text-blue-600 dark:text-blue-500 hover:underline">
             5 star
           </a>
           <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
@@ -124,11 +125,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
             {groupsReviewCount[5].count}
           </span>
         </div>
-        <div className="flex items-center mt-4">
-          <a
-            href="#"
-            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
+        <div
+          onClick={() => onClick(4)}
+          className="flex items-center mt-4 cursor-pointer"
+        >
+          <a className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline">
             4 star
           </a>
           <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
@@ -145,11 +146,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
             {groupsReviewCount[4].count}
           </span>
         </div>
-        <div className="flex items-center mt-4">
-          <a
-            href="#"
-            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
+        <div
+          onClick={() => onClick(3)}
+          className="flex items-center mt-4 cursor-pointer"
+        >
+          <a className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline">
             3 star
           </a>
           <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
@@ -166,11 +167,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
             {groupsReviewCount[3].count}
           </span>
         </div>
-        <div className="flex items-center mt-4">
-          <a
-            href="#"
-            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
+        <div
+          onClick={() => onClick(2)}
+          className="flex items-center mt-4 cursor-pointer"
+        >
+          <a className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline">
             2 star
           </a>
           <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
@@ -187,11 +188,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
             {groupsReviewCount[2].count}
           </span>
         </div>
-        <div className="flex items-center mt-4">
-          <a
-            href="#"
-            className="text-sm w-12 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
+        <div
+          onClick={() => onClick(1)}
+          className="flex items-center mt-4 cursor-pointer"
+        >
+          <a className="text-sm w-12 font-medium text-blue-600 dark:text-blue-500 hover:underline">
             1 star
           </a>
           <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
@@ -208,11 +209,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
             {groupsReviewCount[1].count}
           </span>
         </div>
-        <div className="flex items-center mt-4">
-          <a
-            href="#"
-            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
+        <div
+          onClick={() => onClick(0)}
+          className="flex items-center mt-4 cursor-pointer"
+        >
+          <a className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline">
             0 star
           </a>
           <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
