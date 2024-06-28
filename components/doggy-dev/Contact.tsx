@@ -101,12 +101,14 @@ const ContactInfo: FC<{
         href={
           isLink ? href : title.includes("@") ? `mailto:${href}` : `tel:${href}`
         }
-        className={`flex flex-col gap-12 items-center px-16 md:px-4 ${
+        className={`grid grid-cols-1 gap-12 text-center items-center px-16 md:px-4 ${
           title !== "Mobile" ? "cursor-pointer" : "cursor-default"
         }`}
       >
         <Image
-          className="md:w-[200px] md:h-[200px] "
+          width={300}
+          height={300}
+          className=""
           src={imageSrc}
           alt={imageSrc.src}
         />
@@ -117,7 +119,9 @@ const ContactInfo: FC<{
           src={logo}
           alt={""}
         /> */}
-        <h3 className={`md:text-3xl text-2xl ${caviarBold.className}`}>
+        <h3
+          className={`md:text-3xl break-words text-4xl ${caviarBold.className}`}
+        >
           {title}
         </h3>
       </a>
