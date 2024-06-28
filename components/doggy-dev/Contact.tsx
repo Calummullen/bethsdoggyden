@@ -117,7 +117,7 @@ const ContactInfo: FC<{
           src={logo}
           alt={""}
         /> */}
-        <h3 className={`md:text-2xl text-3xl ${caviarBold.className}`}>
+        <h3 className={`md:text-3xl text-2xl ${caviarBold.className}`}>
           {title}
         </h3>
       </a>
