@@ -3,9 +3,7 @@ import { FC, useRef, useState } from "react";
 import image1 from "../../public/images/stacked-images/imageandtext-1.jpg";
 import image2 from "../../public/images/stacked-images/imageandtext-2.jpg";
 import image3 from "../../public/images/stacked-images/imageandtext-3.jpg";
-import image4 from "../../public/images/stacked-images/imageandtext-4.jpg";
-import image5 from "../../public/images/stacked-images/imageandtext-5.jpg";
-import image6 from "../../public/images/stacked-images/imageandtext-5.jpg";
+import image4 from "../../public/images/stacked-images/milk.jpg";
 import rotate from "../../public/images/stacked-images/rotate.png";
 import tap from "../../public/images/stacked-images/tap.png";
 import next from "../../public/images/stacked-images/next.png";
@@ -36,60 +34,42 @@ export const Services: FC = () => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
   return (
-    <div className="px-12 lg:px-32 xl:px-44 py-12 bg-gray-200 flex flex-col gap-12">
+    <div className="px-12 lg:px-32 xl:px-44 py-12 bg-gray-200 flex flex-col gap-4">
       <div
         ref={textRef}
         className={`transition-all duration-700 md:delay-500 relative -left-12 ${
           isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"
         }`}
       >
-        <h3 className={`${caviarBold.className} text-5xl text-primary`}>
+        <h3 className={`${caviarBold.className} text-6xl mb-4 text-primary`}>
           My Services
         </h3>
-        <p className={`${caviarRegular.className} text-2xl`}>
-          Some generic text about services. Some generic text about services.
-          Some generic text about services.
+        <p className={`${caviarRegular.className} text-3xl`}>
+          Please see below for my current list of services
         </p>
       </div>
       <div
         ref={imageRef}
-        className={`grid transition-all delay-1000 duration-500 2xl:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-between text-center gap-12 mb-24 ${
+        className={`transition-all delay-1000 duration-500 flex flex-col md:flex-row justify-around text-center gap-12 mb-24 ${
           isVisibleImage ? "opacity-100 translate-y-12" : "opacity-0"
         }`}
       >
         <Tile
-          image={image1}
+          image={image2}
           title="Dog Walking"
-          description="Some description1"
+          description="Reliable and personalized dog walking services, ensuring your dog gets the exercise and attention they need. I provide both solo and group walks to suit your dog's preferences"
         />
         <Tile
-          image={image2}
+          image={image4}
           title="Dog Sitting"
-          description="Some description2"
+          description="Dependable and compassionate dog sitting services, ensuring your dog feels comfortable and cared for in your absence. I provide a home-away-from-home experience for your furry friend with a focus on personalized attention and safety."
         />
 
-        <Tile
+        {/* <Tile
           image={image3}
           title="Dog Holidays"
           description="Some description3"
-        />
-
-        <Tile
-          image={image4}
-          title="Some Service"
-          description="Some description4"
-        />
-        <Tile
-          image={image5}
-          title="Another Service"
-          description="Some description5"
-        />
-
-        <Tile
-          image={image6}
-          title="Different Service"
-          description="Some description6"
-        />
+        /> */}
       </div>
     </div>
   );
@@ -131,18 +111,20 @@ const Tile: FC<{
     //   <p className={`${caviarRegular.className} text-xl`}>{description}</p>
     // </div>
 
-    <div className="flex perspective-1000 flex-col rounded-sm shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer">
+    <div
+      onClick={handleFlip}
+      className="flex w-full perspective-1000 flex-col rounded-sm shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer"
+    >
       <div
-        className={`relative transform-style-3d h-[400px] transition-transform duration-700 ${
+        className={`relative transform-style-3d h-[500px] transition-transform duration-700 ${
           flipped ? "rotate-y-180" : ""
         }`}
-        onClick={handleFlip}
       >
         <div className="absolute w-full h-full backface-hidden">
           <Image
             src={image}
             alt="tile image"
-            className={`h-[400px] absolute object-cover`}
+            className={`h-[500px] absolute object-cover`}
           />
           <Image
             height={40}
@@ -152,15 +134,15 @@ const Tile: FC<{
             className="absolute m-2 right-0 opacity-70"
           />
         </div>
-        <div className="absolute w-full h-[400px] backface-hidden rotate-y-180 bg-primary flex items-center justify-center p-4">
-          <p className="text-center text-lg">
-            This is the back of the card. Click to flip back to the image.
-          </p>
+        <div className="absolute gap-4 w-full h-[500px] backface-hidden rotate-y-180 bg-primary flex flex-col items-center justify-center p-4">
+          {description.split(".").map((text) => (
+            <p className="text-center text-lg">{text}.</p>
+          ))}
         </div>
       </div>
 
       <h3
-        className={`mt-4 mx-2 ${caviarBold.className} ${
+        className={`mt-8 mb-2 mx-2 ${caviarBold.className} ${
           flipped ? "text-purple-700" : "text-black"
         } text-5xl`}
       >

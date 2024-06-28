@@ -5,6 +5,7 @@ import Image, { StaticImageData } from "next/image";
 import fb from "../../public/images/logos/facebook.png";
 import ig from "../../public/images/logos/instagram.png";
 import mobile from "../../public/images/logos/mobile.png";
+import email from "../../public/images/logos/email2.png";
 
 const caviarRegular = localFont({
   src: [
@@ -35,14 +36,15 @@ export const Contact: FC = () => {
           isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"
         }`}
       >
-        <h3 className={`${caviarBold.className} text-5xl text-primary`}>
+        <h3 className={`${caviarBold.className} text-6xl mb-4 text-primary`}>
           Contact
         </h3>
-        <p className={`${caviarRegular.className} text-2xl`}>
+        <p className={`${caviarRegular.className} text-3xl`}>
           Please contact me on any of the below platforms
         </p>
       </div>
-      <div className="flex flex-col md:flex-row gap-24 md:gap-4 justify-evenly">
+      {/* <div className="flex flex-col md:flex-row gap-24 md:gap-4 justify-evenly"> */}
+      <div className="grid lg:grid-cols-2 grid-cols-1 2xl:grid-cols-4 items-center gap-24">
         <ContactInfo
           imageSrc={fb}
           title="Facebook"
@@ -60,6 +62,13 @@ export const Contact: FC = () => {
           href="+447704742818"
           isLink={false}
           animationDelay="md:delay-[1000ms]"
+        />
+        <ContactInfo
+          imageSrc={email}
+          title="bethirving123@hotmail.co.uk"
+          href="bethirving123@hotmail.co.uk"
+          isLink={false}
+          animationDelay="md:delay-[1500ms]"
         />
       </div>
     </div>
@@ -89,7 +98,9 @@ const ContactInfo: FC<{
       }`}
     >
       <a
-        href={isLink ? href : `tel:${href}`}
+        href={
+          isLink ? href : title.includes("@") ? `mailto:${href}` : `tel:${href}`
+        }
         className={`flex flex-col gap-12 items-center px-16 md:px-4 ${
           title !== "Mobile" ? "cursor-pointer" : "cursor-default"
         }`}
@@ -99,7 +110,16 @@ const ContactInfo: FC<{
           src={imageSrc}
           alt={imageSrc.src}
         />
-        <h3 className={`text-4xl ${caviarBold.className}`}>{title}</h3>
+        {/* <Image
+          className="absolute top-12"
+          width={80}
+          height={800}
+          src={logo}
+          alt={""}
+        /> */}
+        <h3 className={`md:text-2xl text-3xl ${caviarBold.className}`}>
+          {title}
+        </h3>
       </a>
     </div>
   );

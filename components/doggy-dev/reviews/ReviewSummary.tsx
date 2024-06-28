@@ -1,13 +1,16 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo, useRef, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import localFont from "@next/font/local";
+import { useIsVisible } from "@/utils/useIsVisible";
 
-interface Review {
+export interface Review {
+  reviewer: string;
   rating: number;
   description: string;
+  review_date: Date;
 }
 
 interface Map {
@@ -27,23 +30,14 @@ const caviarBold = localFont({
 });
 
 export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
-  const [rating, setRating] = useState(1.7);
-  //   return (
-  //     <Rating
-  //       readOnly
-  //       halfFillMode="svg"
-  //       style={{ width: 250 }}
-  //       value={rating}
-  //       onChange={setRating}
-  //     />
-  //   );
+  const textRef = useRef(null);
+  const isVisibleText = useIsVisible(textRef);
   const getPercentage = (groupLength: number) => {
-    console.log("grouplenmgth", groupLength);
     return groupLength === 0
       ? "10%"
       : ((groupLength / reviews.length) * 100).toString();
   };
-  console.log("ghdsfg", getPercentage(0));
+
   const groupsReviewCount = reviews.reduce(
     (prev, { rating }) => {
       const foundRating = Number(Object.keys(prev)[rating]);
@@ -55,81 +49,49 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
     },
     {
       5: { count: 0, percentage: "0%" },
-      4: { count: 0, percentage: "23%" },
+      4: { count: 0, percentage: "0%" },
       3: { count: 0, percentage: "0%" },
       2: { count: 0, percentage: "0%" },
       1: { count: 0, percentage: "0%" },
       0: { count: 0, percentage: "0%" },
     } as Map
   );
-  const findStarNumberReviews = (starNumber: number) => {
-    const starNumberReviews = reviews.filter(
-      (review) => review.rating === starNumber
-    );
-    return (starNumberReviews.length / reviews.length) * 100;
-  };
-  const average = useMemo(
-    () =>
-      reviews.reduce(
-        (prev, current) => (prev + current.rating) / reviews.length,
-        0
-      ),
-    [reviews]
+  console.log(reviews);
+  const [sum, setSum] = useState(
+    reviews.reduce((prev, current) => prev + current.rating, 0) / reviews.length
   );
+
+  const getFillType = (starRating: number) => {
+    const splitNumber = sum.toString().split(".");
+    if (sum > starRating) {
+      if (Number(splitNumber[0]) === starRating && Number(splitNumber[1]) > 0)
+        return "partial";
+      return "fill";
+    } else return "empty";
+  };
+
+  // const [average, setAverage] = useState(sum / reviews.length);
+  // console.log(sum);
   return (
-    <div className="px-12 lg:px-32 xl:px-44 py-12 bg-white flex flex-col gap-24">
-      <div className="flex flex-col gap-2">
+    <div className="px-12 lg:pl-32 xl:pl-44 py-12 bg-white flex flex-col gap-24">
+      <div
+        ref={textRef}
+        className={`flex transition-all duration-700 delay-300 flex-col gap-2 ${
+          isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"
+        }`}
+      >
         <h3 className={`${caviarBold.className} text-5xl text-primary`}>
           Customer Reviews
         </h3>
         <div className="flex items-center">
-          <svg
-            className="w-4 h-4 text-yellow-300 me-1"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            className="w-4 h-4 text-yellow-300 me-1"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            className="w-4 h-4 text-yellow-300 me-1"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            className="w-4 h-4 text-yellow-300 me-1"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
-          <svg
-            className="w-4 h-4 text-gray-300 me-1 dark:text-gray-500"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 22 20"
-          >
-            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-          </svg>
+          <Star fillType={getFillType(0)} percent={sum} />
+          <Star fillType={getFillType(1)} percent={sum} />
+          <Star fillType={getFillType(2)} percent={sum} />
+          <Star fillType={getFillType(3)} percent={sum} />
+          <Star fillType={getFillType(4)} percent={sum} />
+
           <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
-            {average.toFixed(1)}
+            {sum.toFixed(1)}
           </p>
           <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
             out of
@@ -144,13 +106,18 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <div className="flex items-center mt-4">
           <a
             href="#"
-            className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="text-sm w-12 font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             5 star
           </a>
-          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              className={`h-5 bg-yellow-300 rounded w-[${groupsReviewCount[5].percentage}]`}
+              style={
+                {
+                  "--custom-width": groupsReviewCount[5].percentage,
+                } as any
+              }
+              className={`h-5 bg-yellow-300 rounded  w-[--custom-width]`}
             ></div>
           </div>
           <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -160,11 +127,11 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <div className="flex items-center mt-4">
           <a
             href="#"
-            className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             4 star
           </a>
-          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
               style={
                 {
@@ -181,13 +148,18 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <div className="flex items-center mt-4">
           <a
             href="#"
-            className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             3 star
           </a>
-          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              className={`h-5 bg-yellow-300 rounded w-[${groupsReviewCount[3].percentage}]`}
+              style={
+                {
+                  "--custom-width": groupsReviewCount[3].percentage,
+                } as any
+              }
+              className={`h-5 bg-yellow-300 rounded w-[--custom-width]`}
             ></div>
           </div>
           <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -197,13 +169,18 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <div className="flex items-center mt-4">
           <a
             href="#"
-            className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             2 star
           </a>
-          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              className={`h-5 bg-yellow-300 rounded w-[${groupsReviewCount[2].percentage}]`}
+              style={
+                {
+                  "--custom-width": groupsReviewCount[2].percentage,
+                } as any
+              }
+              className={`h-5 bg-yellow-300 rounded w-[--custom-width]`}
             ></div>
           </div>
           <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -213,13 +190,18 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <div className="flex items-center mt-4">
           <a
             href="#"
-            className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="text-sm w-12 font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             1 star
           </a>
-          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              className={`h-5 bg-yellow-300 rounded w-[${groupsReviewCount[1].percentage}]`}
+              style={
+                {
+                  "--custom-width": groupsReviewCount[1].percentage,
+                } as any
+              }
+              className={`h-5 bg-yellow-300 rounded w-[--custom-width]`}
             ></div>
           </div>
           <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -229,13 +211,18 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         <div className="flex items-center mt-4">
           <a
             href="#"
-            className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="text-sm w-12  font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             0 star
           </a>
-          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-full lg:w-4/5 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              className={`h-5 bg-yellow-300 rounded w-[${groupsReviewCount[0].percentage}]`}
+              style={
+                {
+                  "--custom-width": groupsReviewCount[0].percentage,
+                } as any
+              }
+              className={`h-5 bg-yellow-300 rounded w-[--custom-width]`}
             ></div>
           </div>
           <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -244,5 +231,55 @@ export const ReviewSummary: FC<{ reviews: Review[] }> = ({ reviews }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const Star: FC<{ fillType: string; percent: number }> = ({
+  percent,
+  fillType,
+}) => {
+  const splitNumber = percent.toString().split(".");
+  const [partial, setPartial] = useState(
+    fillType === "partial" ? Number(`0.${splitNumber[1]}`) * 100 : 0
+  );
+
+  return (
+    <svg
+      className=""
+      width={24}
+      height={24}
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <defs>
+        {fillType === "fill" ? (
+          <linearGradient id="grad">
+            <stop offset="100%" stop-color="#FDE047" />
+            <stop offset="0%" stop-color="grey" />
+          </linearGradient>
+        ) : fillType === "empty" ? (
+          <linearGradient id="grad1">
+            <stop offset="100%" stop-color="grey" />
+          </linearGradient>
+        ) : (
+          <linearGradient id="grad2">
+            <stop offset={`${partial}%`} stop-color="#FDE047" />
+            <stop offset={`${100 - Number(partial)}%`} stop-color="grey" />
+          </linearGradient>
+        )}
+      </defs>
+
+      <path
+        fill={`url(#${
+          fillType === "fill"
+            ? "grad"
+            : fillType === "empty"
+            ? "grad1"
+            : "grad2"
+        })`}
+        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+      />
+    </svg>
   );
 };
