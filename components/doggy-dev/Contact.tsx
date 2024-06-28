@@ -93,7 +93,7 @@ const ContactInfo: FC<{
   return (
     <div
       ref={imageRef}
-      className={`transition-all duration-700 relative ${animationDelay} -left-12 ${
+      className={`transition-all  duration-700 relative ${animationDelay} -left-12 ${
         isVisibleImage ? "opacity-100 translate-x-0 left-0" : "opacity-0"
       }`}
     >
@@ -101,7 +101,7 @@ const ContactInfo: FC<{
         href={
           isLink ? href : title.includes("@") ? `mailto:${href}` : `tel:${href}`
         }
-        className={`grid grid-cols-1 gap-12 text-center items-center px-16 md:px-4 ${
+        className={`flex flex-col gap-12 text-center items-center  ${
           title !== "Mobile" ? "cursor-pointer" : "cursor-default"
         }`}
       >
@@ -120,7 +120,7 @@ const ContactInfo: FC<{
           alt={""}
         /> */}
         <h3
-          className={`md:text-3xl break-words text-4xl ${caviarBold.className}`}
+          className={`md:text-3xl [overflow-wrap:anywhere] text-4xl ${caviarBold.className}`}
         >
           {title}
         </h3>
