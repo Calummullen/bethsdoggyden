@@ -58,7 +58,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
           safe, nurturing environment.
         </p>
       </div>
-      <div ref={imageRef} className="relative w-[300px] sm:w-[400px] h-[400px]">
+      <div ref={imageRef} className="relative w-[250px] sm:w-[400px] h-[400px]">
         <Image
           src={image5}
           alt="background"

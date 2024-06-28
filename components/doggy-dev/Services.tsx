@@ -92,7 +92,7 @@ const Tile: FC<{
       className="flex perspective-1000 flex-col rounded-lg shadow-xl pb-6 duration-200 hover:ease-in-out hover:scale-105 scale-100 cursor-pointer"
     >
       <div
-        className={`relative transform-style-3d h-[500px] transition-transform duration-700 ${
+        className={`relative transform-style-3d h-[400px] sm:h-[500px] transition-transform duration-700 ${
           flipped ? "rotate-y-180" : ""
         }`}
       >
@@ -100,7 +100,7 @@ const Tile: FC<{
           <Image
             src={image}
             alt="tile image"
-            className={`h-[500px] absolute object-cover rounded-t-lg`}
+            className={`h-[400px] sm:h-[500px] absolute object-cover rounded-t-lg`}
           />
           <Image
             height={40}
@@ -110,7 +110,7 @@ const Tile: FC<{
             className="absolute m-2 right-0 opacity-70"
           />
         </div>
-        <div className="absolute rounded-t-lg gap-4 w-full h-[500px] backface-hidden rotate-y-180 bg-primary flex flex-col items-center justify-center p-4">
+        <div className="absolute rounded-t-lg gap-4 w-full h-[400px] sm:h-[500px] backface-hidden rotate-y-180 bg-primary flex flex-col items-center justify-center p-4">
           {description.split(".").map((text) => (
             <p className="text-center text-lg">{text}.</p>
           ))}

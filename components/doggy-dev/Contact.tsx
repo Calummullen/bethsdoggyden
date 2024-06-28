@@ -106,8 +106,8 @@ const ContactInfo: FC<{
         }`}
       >
         <Image
-          width={300}
-          height={300}
+          width={200}
+          height={200}
           className=""
           src={imageSrc}
           alt={imageSrc.src}
