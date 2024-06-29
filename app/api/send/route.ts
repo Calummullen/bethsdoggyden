@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
       react: EmailTemplate({ ...emailData }),
       text: "",
     });
-
+    console.log("data", data);
+    console.log("error", error);
     if (error) {
       return Response.json({ error }, { status: 500 });
     }
