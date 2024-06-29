@@ -1,6 +1,6 @@
 import { useIsVisible } from "@/utils/useIsVisible";
 import localFont from "@next/font/local";
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import fb from "../../public/images/logos/facebook.png";
 import ig from "../../public/images/logos/instagram.png";
@@ -8,7 +8,7 @@ import mobile from "../../public/images/logos/mobile.png";
 import email from "../../public/images/logos/email2.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-type Inputs = {
+export type Inputs = {
   name: string;
   email: string;
   mobile: string;
@@ -38,11 +38,24 @@ export const Contact: FC = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting, isSubmitted },
   } = useForm<Inputs>();
-  console.log(isValid);
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean>(true);
+  const sendEmail = async (data: Inputs) => {
+    // const response = await SendEmail(data);
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    const response = await fetch("http://localhost:3000/api/send", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      setIsSubmitSuccessful(true);
+    } else {
+      setIsSubmitSuccessful(false);
+    }
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => await sendEmail(data);
 
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
@@ -65,8 +78,8 @@ export const Contact: FC = () => {
           possible
         </p>
       </div>
-      <div className="grid md:grid-cols-2 gap-12">
-        <div className="grid lg:grid-cols-2 grid-cols-1 items-center gap-24">
+      <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 grid-cols-1 items-center gap-24 lg:border-none border-primary lg:border-b-0 border-b-[1px] lg:pb-0 pb-12">
           <ContactInfo
             imageSrc={fb}
             title="Facebook"
@@ -90,65 +103,78 @@ export const Contact: FC = () => {
             title="bethirving123@hotmail.co.uk"
             href="bethirving123@hotmail.co.uk"
             isLink={false}
-            animationDelay="md:delay-[1500ms]"
+            animationDelay="md:delay-[1250ms]"
           />
         </div>
 
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className={`flex flex-col gap-12  ${caviarBold.className}`}
+            className={`  ${caviarBold.className}`}
           >
-            <div className="flex flex-col gap-2">
-              <label>Name</label>
-              <input
-                className="p-2  focus:!border-primary"
-                type="text"
-                {...register("name", {
-                  required: true,
-                })}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label>Email</label>
-              <input
-                className="p-2"
-                type="email"
-                {...register("email", {
-                  required: true,
-                })}
-              />
-            </div>
+            <fieldset disabled={isSubmitting} className="flex flex-col gap-12">
+              <div className="flex flex-col gap-2">
+                <label>Name</label>
+                <input
+                  className="p-2 disabled:bg-gray-100 focus:!border-primary"
+                  type="text"
+                  {...register("name", {
+                    required: true,
+                  })}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label>Email</label>
+                <input
+                  className="p-2 disabled:bg-gray-100"
+                  type="email"
+                  {...register("email", {
+                    required: true,
+                  })}
+                />
+              </div>
 
-            <div className="flex flex-col gap-2">
-              <label>Mobile</label>
-              <input
-                className="p-2"
-                type="tel"
-                {...register("mobile", {
-                  required: true,
-                })}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label>Message</label>
-              <textarea
-                rows={5}
-                cols={1}
-                className="p-2"
-                {...register("message", {
-                  required: true,
-                })}
-              />
-            </div>
-            <div>
-              <button
-                disabled={!isValid}
-                className=" bg-primary rounded-md py-4 px-8 hover:bg-opacity-80 disabled:bg-gray-400"
-              >
-                Submit
-              </button>
-            </div>
+              <div className="flex flex-col gap-2">
+                <label>Mobile</label>
+                <input
+                  className="p-2 disabled:bg-gray-100"
+                  type="tel"
+                  {...register("mobile", {
+                    required: true,
+                  })}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label>Message</label>
+                <textarea
+                  rows={5}
+                  cols={1}
+                  className="p-2 disabled:bg-gray-100"
+                  {...register("message", {
+                    required: true,
+                  })}
+                />
+              </div>
+              <div>
+                <button
+                  disabled={!isValid}
+                  className=" bg-primary rounded-md py-4 px-8 hover:bg-opacity-80 disabled:bg-gray-400"
+                >
+                  Submit
+                </button>
+              </div>
+              {isSubmitted && isSubmitSuccessful && (
+                <p className="text-primary font-bold text-2xl">
+                  Email successfully sent!
+                </p>
+              )}
+              {isSubmitted && !isSubmitSuccessful && (
+                <p className="text-red-600 font-bold text-xl">
+                  An error occurred while sending the email. Please try again or
+                  contact me directly
+                </p>
+              )}
+            </fieldset>
           </form>
         </div>
       </div>
