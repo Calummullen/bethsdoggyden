@@ -42,9 +42,8 @@ export const Contact: FC = () => {
   } = useForm<Inputs>();
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean>(true);
   const sendEmail = async (data: Inputs) => {
-    // const response = await SendEmail(data);
-
-    const response = await fetch("http://localhost:3000/api/send", {
+    const url = process.env.NEXT_PUBLIC_RESEND_FETCH_API ?? "";
+    const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
     });
