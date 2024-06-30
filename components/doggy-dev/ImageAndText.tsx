@@ -37,7 +37,7 @@ export const TopSection: FC<{ reverse?: boolean }> = ({ reverse = false }) => {
   const isVisibleText = useIsVisible(textRef);
 
   return (
-    <div className="flex mb-12 sm:mb-48 mt-24 px-12 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 items-center">
+    <div className="flex mb-12 sm:mb-48 mt-24 px-4 lg:px-32 xl:px-44 flex-col lg:flex-row gap-36 lg:gap-20 items-center">
       <div
         ref={textRef}
         className={`order-${

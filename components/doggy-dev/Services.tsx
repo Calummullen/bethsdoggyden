@@ -34,7 +34,7 @@ export const Services: FC = () => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
   return (
-    <div className="px-12 lg:px-32 xl:px-44 py-12 bg-gray-200 flex flex-col gap-4">
+    <div className="px-4 lg:px-32 xl:px-44 py-12 bg-gray-200 flex flex-col gap-4">
       <div
         ref={textRef}
         className={`transition-all duration-700 md:delay-500 relative -left-12 ${
