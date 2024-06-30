@@ -87,8 +87,8 @@ export const Contact: FC = () => {
           possible
         </p>
       </div>
-      <div className="grid lg:grid-cols-2 justify-between gap-12">
-        <div className="grid lg:grid-cols-2 max-h-[704px] grid-cols-1 items-center gap-24 lg:border-none border-primary lg:border-b-0 border-b-[1px] lg:pb-0 pb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 justify-between gap-12">
+        <div className="grid lg:grid-cols-2 sm:grid-cols-1 items-center gap-24 lg:border-none border-primary lg:border-b-0 border-b-[1px] lg:pb-0 pb-12">
           <ContactInfo
             imageSrc={fb}
             title="Facebook"
