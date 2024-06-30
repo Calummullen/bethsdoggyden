@@ -25,7 +25,7 @@ export const Reviews: FC<{ reviews: Review[] }> = ({ reviews }) => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
   return (
-    <div className="px-4 lg:pr-32 xl:pr-44 py-12 bg-white flex flex-col gap-24">
+    <div className="px-4 sm:px-12 lg:pr-32 xl:pr-44 py-12 bg-white flex flex-col gap-24">
       <div
         ref={textRef}
         className={`flex transition-all duration-700 delay-300 flex-col gap-4 items-center h-[500px] ${

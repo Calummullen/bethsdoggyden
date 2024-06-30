@@ -63,7 +63,7 @@ export const Contact: FC = () => {
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
   return (
-    <div className="px-4 lg:px-32 xl:px-44 py-12 bg-purple-100 flex flex-col gap-24">
+    <div className="px-4 sm:px-12 lg:px-32 xl:px-44 py-12 bg-purple-100 flex flex-col gap-24">
       <div
         ref={textRef}
         className={`flex flex-col gap-4 transition-all duration-700 relative -left-12 border-b-[1px] pb-12 border-primary ${

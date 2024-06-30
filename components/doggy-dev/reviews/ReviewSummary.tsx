@@ -74,7 +74,7 @@ export const ReviewSummary: FC<{
   };
 
   return (
-    <div className="px-4 lg:pl-32 xl:pl-44 py-12 bg-white flex flex-col gap-24">
+    <div className="px-4 sm:px-12 lg:pl-32 xl:pl-44 py-12 bg-white flex flex-col gap-24">
       <div
         ref={textRef}
         className={`flex transition-all duration-700 delay-300 flex-col gap-2 ${
