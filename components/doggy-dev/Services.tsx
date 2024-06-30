@@ -111,8 +111,10 @@ const Tile: FC<{
           />
         </div>
         <div className="absolute rounded-t-lg gap-4 w-full h-[400px] sm:h-[500px] backface-hidden rotate-y-180 bg-primary flex flex-col items-center justify-center p-4">
-          {description.split(".").map((text) => (
-            <p className="text-center text-lg">{text}.</p>
+          {description.split(".").map((text, index) => (
+            <p key={index} className="text-center text-lg">
+              {text}.
+            </p>
           ))}
         </div>
       </div>

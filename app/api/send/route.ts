@@ -8,21 +8,19 @@ export async function POST(request: NextRequest) {
   try {
     const emailData = await request.json();
     const { data, error } = await resend.emails.send({
-      from: "enquiry@bethsdoggyden.co.uk",
+      from: "bethsdoggyden.co.uk <enquiry@bethsdoggyden.co.uk>",
       to: "calummullen1995@gmail.com",
       subject: "Business enquiry",
       react: EmailTemplate({ ...emailData }),
       text: "",
     });
-    console.log("data", data);
-    console.log("error", error);
+
     if (error) {
       return Response.json({ error }, { status: 500 });
     }
 
     return Response.json(data);
   } catch (error) {
-    console.log("error:", error);
     return Response.json({ error }, { status: 500 });
   }
 }

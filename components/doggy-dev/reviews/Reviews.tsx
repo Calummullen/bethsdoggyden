@@ -33,14 +33,17 @@ export const Reviews: FC<{ reviews: Review[] }> = ({ reviews }) => {
         } ${isVisibleText ? "opacity-100 translate-x-0 left-0" : "opacity-0"}`}
       >
         {reviews.length ? (
-          reviews.map(({ reviewer, review_date, rating, description }) => (
-            <ReviewTile
-              reviewer={reviewer}
-              rating={rating}
-              description={description}
-              review_date={review_date}
-            />
-          ))
+          reviews.map(
+            ({ reviewer, review_date, rating, description }, index) => (
+              <ReviewTile
+                key={index}
+                reviewer={reviewer}
+                rating={rating}
+                description={description}
+                review_date={review_date}
+              />
+            )
+          )
         ) : (
           <p>No Reviews</p>
         )}

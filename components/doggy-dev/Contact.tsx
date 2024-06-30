@@ -10,8 +10,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 export type Inputs = {
   name: string;
-  email: string;
-  mobile: string;
+  email: string | null;
+  mobile: string | null;
   message: string;
 };
 
@@ -37,9 +37,13 @@ export const Contact: FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    trigger,
+    setValue,
     formState: { errors, isValid, isSubmitting, isSubmitted },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({ mode: "all" });
+  const [contactMethod, setContactMethod] = useState<
+    "email" | "mobile" | "either"
+  >("email");
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<boolean>(true);
   const sendEmail = async (data: Inputs) => {
     const url = process.env.NEXT_PUBLIC_RESEND_FETCH_API ?? "";
@@ -53,11 +57,17 @@ export const Contact: FC = () => {
       setIsSubmitSuccessful(false);
     }
   };
-
+  console.log("errors", errors);
   const onSubmit: SubmitHandler<Inputs> = async (data) => await sendEmail(data);
 
   const textRef = useRef(null);
   const isVisibleText = useIsVisible(textRef);
+  // const clearContactMethods = () => {
+  //   setValue("mobile", null);
+  //   setValue("email", null);
+  //   trigger();
+  // };
+  console.log(isValid);
   return (
     <div className="px-12 lg:px-32 xl:px-44 py-12 bg-purple-100 flex flex-col gap-24">
       <div
@@ -77,8 +87,8 @@ export const Contact: FC = () => {
           possible
         </p>
       </div>
-      <div className="grid lg:grid-cols-2 gap-12">
-        <div className="grid lg:grid-cols-2 grid-cols-1 items-center gap-24 lg:border-none border-primary lg:border-b-0 border-b-[1px] lg:pb-0 pb-12">
+      <div className="grid lg:grid-cols-2 justify-between gap-12">
+        <div className="grid lg:grid-cols-2 max-h-[704px] grid-cols-1 items-center gap-24 lg:border-none border-primary lg:border-b-0 border-b-[1px] lg:pb-0 pb-12">
           <ContactInfo
             imageSrc={fb}
             title="Facebook"
@@ -118,31 +128,92 @@ export const Contact: FC = () => {
                   className="p-2 disabled:bg-gray-100 focus:!border-primary"
                   type="text"
                   {...register("name", {
-                    required: true,
+                    required: {
+                      value: true,
+                      message: "Name is required",
+                    },
                   })}
                 />
+                {errors.name && (
+                  <p className="text-red-500">{errors.name.message}</p>
+                )}
               </div>
-              <div className="flex flex-col gap-2">
-                <label>Email</label>
-                <input
-                  className="p-2 disabled:bg-gray-100"
-                  type="email"
-                  {...register("email", {
-                    required: true,
-                  })}
-                />
+              <div className="flex flex-col gap-4">
+                <label>Preferred Contact Method:</label>
+                <div className=" flex flex-row gap-4 items-center w-[100px]">
+                  <label>Email</label>
+                  <input
+                    defaultChecked={contactMethod === "email"}
+                    onClick={() => {
+                      setContactMethod("email");
+                      setValue("mobile", null);
+                    }}
+                    className="ml-auto"
+                    name="contactMethod"
+                    type="radio"
+                  />
+                </div>
+                <div className="flex flex-row gap-4 items-center w-[100px]">
+                  <label>Mobile</label>
+                  <input
+                    onClick={() => {
+                      setContactMethod("mobile");
+                      setValue("email", null);
+                    }}
+                    className="ml-auto"
+                    name="contactMethod"
+                    type="radio"
+                  />
+                </div>
+                <div className="flex flex-row gap-4 items-center w-[100px]">
+                  <label>Either</label>
+                  <input
+                    onClick={() => {
+                      setContactMethod("either");
+                    }}
+                    className="ml-auto"
+                    name="contactMethod"
+                    type="radio"
+                  />
+                </div>
               </div>
+              {(contactMethod === "email" || contactMethod === "either") && (
+                <div className="flex flex-col gap-2">
+                  <label>Email</label>
+                  <input
+                    className="p-2 disabled:bg-gray-100"
+                    type="email"
+                    {...register("email", {
+                      required: {
+                        value: true,
+                        message: "Email is required",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500">{errors.email.message}</p>
+                  )}
+                </div>
+              )}
 
-              <div className="flex flex-col gap-2">
-                <label>Mobile</label>
-                <input
-                  className="p-2 disabled:bg-gray-100"
-                  type="tel"
-                  {...register("mobile", {
-                    required: true,
-                  })}
-                />
-              </div>
+              {(contactMethod === "mobile" || contactMethod === "either") && (
+                <div className="flex flex-col gap-2">
+                  <label>Mobile</label>
+                  <input
+                    className="p-2 disabled:bg-gray-100"
+                    type="tel"
+                    {...register("mobile", {
+                      required: {
+                        value: true,
+                        message: "Mobile is required",
+                      },
+                    })}
+                  />
+                  {errors.mobile && (
+                    <p className="text-red-500">{errors.mobile.message}</p>
+                  )}
+                </div>
+              )}
               <div className="flex flex-col gap-2">
                 <label>Message</label>
                 <textarea
@@ -150,9 +221,15 @@ export const Contact: FC = () => {
                   cols={1}
                   className="p-2 disabled:bg-gray-100"
                   {...register("message", {
-                    required: true,
+                    required: {
+                      value: true,
+                      message: "Message is required",
+                    },
                   })}
                 />
+                {errors.message && (
+                  <p className="text-red-500">{errors.message.message}</p>
+                )}
               </div>
               <div>
                 <button

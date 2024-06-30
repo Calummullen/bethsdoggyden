@@ -256,17 +256,17 @@ const Star: FC<{ fillType: string; percent: number }> = ({
       <defs>
         {fillType === "fill" ? (
           <linearGradient id="grad">
-            <stop offset="100%" stop-color="#FDE047" />
-            <stop offset="0%" stop-color="grey" />
+            <stop stopColor="#FDE047" offset="100%" />
+            <stop offset="0%" stopColor="grey" />
           </linearGradient>
         ) : fillType === "empty" ? (
           <linearGradient id="grad1">
-            <stop offset="100%" stop-color="grey" />
+            <stop offset="100%" stopColor="grey" />
           </linearGradient>
         ) : (
           <linearGradient id="grad2">
-            <stop offset={`${partial}%`} stop-color="#FDE047" />
-            <stop offset={`${100 - Number(partial)}%`} stop-color="grey" />
+            <stop offset={`${partial}%`} stopColor="#FDE047" />
+            <stop offset={`${100 - Number(partial)}%`} stopColor="grey" />
           </linearGradient>
         )}
       </defs>
